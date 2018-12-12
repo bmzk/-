@@ -42,7 +42,6 @@ adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
 
 
 failrename=0
-faildeletefile=[]
 
 t= time.localtime(time.time())
 时间标签="_"+str(t[0])+'年'+str(t[1])+'月'+str(t[2])+'日'+str(t[3])+'时'+str(t[4])+'分'+str(t[5])+'秒'#+random.randint(0,9)
@@ -64,7 +63,6 @@ for ad in adlist:
             else:
                 print ('可能是文件占用，未能够重命名')
                 failrename=failrename+1
-                faildeletefile.append(ad)
                 for i in range(3):
                     print("----"*9)
         #os.fdopen(ad)
@@ -81,8 +79,4 @@ for ad in adlist:
 
 print("")
 print ('广告文件修改完毕')
-print('有'+str(failrename)+'个文件未能删除成功，分别是：')
-for i in faildeletefile:
-    print(i)
-
-input("")
+print ('有'+failrename+'未能删除成功')
