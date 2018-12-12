@@ -1,28 +1,28 @@
 # -*- coding: utf-8  -*-
-import turtle
-bob = turtle.Turtle()
-print(bob)
-#turtle.mainloop()
-bob.fd(100)
-print(1)
-bob.fd(100)
-print(2)
-bob.lt(90)
-print(3)
-bob.fd(100)
-print(4)
-for i in range(4):
- bob.fd(100)
- bob.lt(90)
-a=1
-for i in range(44):
- print(a)
- a=a+1
-x=1
-for x in range (11):
- print(x)
- s=input('What...is your name?\n')
- print("....................................................................................................")
- print(s  + x )
-print("1212....................................................................................................")
-s=input('What...is your name?\n 11232154644984898979')
+import os
+import time
+
+adlist=[]
+adlist.append("C:\\Users\\asd\\AppData\\Roaming\\Tencent\\QQMicroGameBox\\1.1.4.5\\QQMicroGameBoxTray.exe")
+adlist.append("C:\\Users\\asd\\AppData\\Roaming\\Tencent\\QQMicroGameBox\\Launch.exe")
+adlist.append("C:\\Users\\asd\\AppData\\Roaming\\Tencent\\QQMicroGameBox\\1.1.4.5\\QQMicroGameBox.exe")
+
+t= time.localtime(time.time())
+文件拓展名=str(t[0])+'年'+str(t[1])+'月'+str(t[2])+'日'+str(t[3])+'时'+str(t[4])+'分'+str(t[5])+'秒'
+
+
+
+print('总共有',adlist.count(adlist),'个文件夹')
+
+for ad in adlist:
+    if os.path.exists(ad):
+        os.rename(ad, ad+文件拓展名)
+        print (ad+ "  已重命名为："+ ad+文件拓展名)
+        os.fdopen(ad)
+        print ("空文件"+ ad+'已创建')
+    else:
+        print (ad+"不存在")
+
+
+
+print ('广告文件修改完毕')
