@@ -1,7 +1,8 @@
 # -*- coding: utf-8  -*-
 import os
-import time
 import random
+import time
+
 '广告文件列表'
 adlist=[]
 '腾讯'
@@ -20,7 +21,7 @@ adlist.append(Tencent2+'plugin.exe')
 adlist.append(Tencent2+'QQMGBWebserver.exe')
 adlist.append(Tencent2+'QQMicroGameBoxService.exe')
 adlist.append(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
-
+adlist.append(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
 
 
 
@@ -45,7 +46,7 @@ failrename=0
 faildeletefile=[]
 
 t= time.localtime(time.time())
-时间标签="_"+str(t[0])+'年'+str(t[1])+'月'+str(t[2])+'日'+str(t[3])+'时'+str(t[4])+'分'+str(t[5])+'秒'#+random.randint(0,9)
+timetxt="_"+str(t[0])+'年'+str(t[1])+'月'+str(t[2])+'日'+str(t[3])+'时'+str(t[4])+'分'+str(t[5])+'秒'#+random.randint(0,9)
 
 
 print('总共有',len(adlist),'个exe文件')
@@ -55,12 +56,12 @@ for ad in adlist:
     print (ad)
     if os.path.exists(ad):
         try: 
-            os.rename(ad, ad[:len(ad)-4]+时间标签)
+            os.rename(ad, ad[:len(ad)-4]+timetxt)
             print ("已重命名为：")
-            print (ad[:len(ad)-4]+时间标签)
+            print (ad[:len(ad)-4]+timetxt)
         except:
-            if os.path.exists(ad[:len(ad)-4]+时间标签):
-                print ('已存在，未重新创建'+ad[:len(ad)-4]+时间标签)
+            if os.path.exists(ad[:len(ad)-4]+timetxt):
+                print ('已存在，未重新创建'+ad[:len(ad)-4]+timetxt)
             else:
                 print ('可能是文件占用，未能够重命名')
                 failrename=failrename+1
@@ -70,11 +71,11 @@ for ad in adlist:
         #os.fdopen(ad)
         try:
             exe=open(ad,'a')
+            exe.close
+            print ("已创建空文件"+ ad+'')
         except:
             print('创建新文件出错！！！')
             print('未创建新文件'+ad +'')
-        exe.close
-        print ("已创建空文件"+ ad+'')
     else:
         print ("文件不存在")
     print("")
