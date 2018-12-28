@@ -5,47 +5,60 @@ import time
 
 #q
 '广告文件列表'
-adlist=[]
+adlist={''}
 '腾讯'
+adlist.add
 Tencent='C:\\Users\\asd\\AppData\\Roaming\\Tencent\\'
-adlist.append(Tencent+"QQMicroGameBox\\Launch.exe")
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\QQMGameBoxUpdater.exe')
-adlist.append(Tencent+"QQMicroGameBox\\1.1.4.5\\QQMicroGameBox.exe")
-adlist.append(Tencent+"QQMicroGameBox\\1.1.4.5\\QQMicroGameBoxTray.exe")
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\WebBrowserProcess.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\WebServer.exe')
+adlist.add(Tencent+"QQMicroGameBox\\Launch.exe")
+adlist.add(Tencent+'QQMicroGameBox\\1.1.4.5\\QQMGameBoxUpdater.exe')
+adlist.add(Tencent+"QQMicroGameBox\\1.1.4.5\\QQMicroGameBox.exe")
+adlist.add(Tencent+"QQMicroGameBox\\1.1.4.5\\QQMicroGameBoxTray.exe")
+adlist.add(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(Tencent+'QQMicroGameBox\\1.1.4.5\\WebBrowserProcess.exe')
+adlist.add(Tencent+'QQMicroGameBox\\1.1.4.5\\WebServer.exe')
 
 
 Tencent2='C:\\Program Files (x86)\\Tencent\\QQMicroGameBoxService\\1.0.5.2\\'
-adlist.append(Tencent2+'plugin.exe')
-adlist.append(Tencent2+'QQMGBWebserver.exe')
-adlist.append(Tencent2+'QQMicroGameBoxService.exe')
-adlist.append(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
-adlist.append(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
-
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
-adlist.append(Tencent+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(Tencent2+'plugin.exe')
+adlist.add(Tencent2+'QQMGBWebserver.exe')
+adlist.add(Tencent2+'QQMicroGameBoxService.exe')
+adlist.add(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
+adlist.add(Tencent2+'QQMicroGameBoxServiceUpdate.exe')
+'wps'
+wps='C:\\Program Files (x86)\\WPS Office\\'
+adlist.add(wps+'10.1.0.6747\\wtoolex\\desktoptip.exe')
+adlist.add(wps+'10.1.0.6747\\wtoolex\\wpsnotify.exe')
+adlist.add(wps+'10.1.0.6747\\wtoolex\\wpsupdate.exe')
+adlist.add(wps+'10.1.0.6747\\wtoolex\\updateself.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
+adlist.add(wps+'QQMicroGameBox\\1.1.4.5\\Toolkit.exe')
 
 errorlist=[]
+noFind=[]
+existAd=[]
 def delete(adList:list):
-    n=len(adList)
     for i in adList:
         print("要删除文件：",i)
+    fgx()
     for i in adList:
         if os.path.exists(i):
+            existAd.append(i)
             renameFile(i)
-    print('---'*9)
-    checkResult(adList)
-    for i in errorlist:
-        print('删除过程中出现错误:',i)
+        else:
+            print(getTime(time.time()),'文件未找到:',i)
+            noFind.append(i)
+    fgx()
+    checkResult(existAd)
+    fgx()
+
+
+
 
 def renameFile(file):
     '''对文件进行重命名'''
@@ -55,13 +68,15 @@ def renameFile(file):
         fileId+=1
     try:
         os.rename(file, file[:-4]+getTime(t_current,0,1)+'-'+str(fileId))
+        print(getTime(time.time()),'已删除:',file)
     except PermissionError:
-        print('文件被占用:',file)
+        print(getTime(time.time()),'文件被占用或权限不足:',file)
         errorlist.append(file)
     except:
-        print('删除文件出现错误:',file)
-    print(getTime(),'已执行删除文件:',file)    
-def getTime(t_current=0.0,n=5,mode=0):      
+        print(getTime(time.time()),'删除文件出现错误:',file)
+    
+      
+def getTime(t_current=0.0,mode=3,n=3):      
     t=time.localtime(t_current)
     ms=int((t_current-int(t_current))*1000)
     if mode==0:
@@ -89,19 +104,25 @@ def checkResult(adList):
             noDeleted.append(ad)
         else:
             deleted.append(ad)
-    print('---'*9)
-    print('总共',len(adList),'个文件.')  
-    print('---'*9)
-    print(len(deleted),'个文件已经删除.')
+    fgx()
+    fgx()
+    print('要删除',len(adList)+len(noFind),'个文件,其中',len(deleted),'个文件已经删除.',len(noFind),'个文件未找到,',len(errorlist),'个文件被占用或权限不足.')
+    fgx()
+    print(getTime(time.time()),'已经删除文件:')
     for i in deleted:
         print('成功删除: ',i)
-    print('---'*9)
-    print(len(noDeleted),'个文件未能够删除.')
+    fgx()
+    print(getTime(time.time()),'未找到文件:')
+    for i in noFind:
+        print('未找到: ',i)
+    fgx()
+    print(getTime(time.time()),'未能删除文件:')
     for i in noDeleted:
         print('未删除: ',i)
-    pass  
 
 
+def fgx(n=22,tips=""):
+    print(tips,'--'*22)
 
 delete(adlist)
 
