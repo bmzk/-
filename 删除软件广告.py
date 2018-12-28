@@ -2,7 +2,7 @@
 import os
 import random
 import time
-
+#qwertyuiop
 '广告文件列表'
 adlist=[]
 '腾讯'
