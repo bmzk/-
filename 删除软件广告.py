@@ -96,9 +96,12 @@ def checkResult():
         if os.path.exists(ad):
             unsuccessDeleteFile.append(ad)
             successDeleteFile.remove(ad)
+            newfile = open(ad+'0','x' )
+            newfile.write('current time : '+time.strftime('%Y/%m/%d %H:%M:%S',time.localtime(time.time())))
+            newfile.close
         else:
-            newfile = open(ad,'a+' )
-            newfile.write('012345698761416raegfgg')
+            newfile = open(ad,'x' )
+            newfile.write('current time : '+time.strftime('%Y/%m/%d %H:%M:%S',time.localtime(time.time())))
             newfile.close
     fgx()
     print('  要删除文件: ',len(adlist))
